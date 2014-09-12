@@ -1,0 +1,14 @@
+.breadcrumb {
+    /*float: right;*/
+    background: transparent;
+    margin-top: 0px;
+    margin-bottom: 0;
+    font-size: 12px;
+    padding: 7px 5px;
+    /*position: absolute;*/
+    top: 15px;
+    right: 10px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
