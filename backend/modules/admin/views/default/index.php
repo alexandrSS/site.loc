@@ -21,24 +21,24 @@ $data = [
     ]]
 ];
 
-echo \wbraganca\fancytree\FancytreeWidget::widget([
-    'options' =>[
-        'source' => $data,
-        'extensions' => ['dnd'],
-        'dnd' => [
-            'preventVoidMoves' => true,
-            'preventRecursiveMoves' => true,
-            'autoExpandMS' => 400,
-            'dragStart' => new JsExpression('function(node, data) {
-                return true;
-            }'),
-            'dragEnter' => new JsExpression('function(node, data) {
-                return true;
-            }'),
-            'dragDrop' => new JsExpression('function(node, data) {
-                data.otherNode.moveTo(node, data.hitMode);
-            }'),
-        ],
-    ]
-]);
+//echo \wbraganca\fancytree\FancytreeWidget::widget([
+//    'options' =>[
+//        'source' => $data,
+//        'extensions' => ['dnd'],
+//        'dnd' => [
+//            'preventVoidMoves' => true,
+//            'preventRecursiveMoves' => true,
+//            'autoExpandMS' => 400,
+//            'dragStart' => new JsExpression('function(node, data) {
+//                return true;
+//            }'),
+//            'dragEnter' => new JsExpression('function(node, data) {
+//                return true;
+//            }'),
+//            'dragDrop' => new JsExpression('function(node, data) {
+//                data.otherNode.moveTo(node, data.hitMode);
+//            }'),
+//        ],
+//    ]
+//]);
 ?>

@@ -57,6 +57,11 @@ class Category extends BaseCategory
     protected $_categoryStatus;
 
     /**
+     * @var Читабельный статус категории
+     */
+    protected $_parentList;
+
+    /**
      * @inheritdoc
      */
     public function behaviors()
@@ -169,8 +174,22 @@ class Category extends BaseCategory
         return $this->_categoryStatus;
     }
 
-
     /**
+     * Читабельный статус котегории
+     * @return mixed
+     */
+    public function getParentList()
+    {
+        if(!empty($this->parent_id)){
+            if($this->_parentList === NULL){
+                $parentList = self::getParentListArray();
+                $this->_parentList = $parentList[$this->parent_id];
+            }
+            return $this->_parentList;
+        }
+        return $this->_parentList = NULL;
+    }
+     /**
      * @return array [[DropDownList]] массив категорий.
      */
     public static function getCategoryArray()
@@ -183,6 +202,57 @@ class Category extends BaseCategory
             Yii::$app->cache->set($key, $value);
         }
         return $value;
+    }
+
+    public static function getParentListArray($parent_id = null, $level = 0)
+    {
+        if (empty($parent_id)) {
+            $parent_id = null;
+        }
+
+        $categories = Category::find()->where(['parent_id' => $parent_id])->all();
+
+        $list = array();
+
+        foreach ($categories as $category) {
+
+            $category->title = str_repeat(' - ', $level) . $category->title;
+
+            $list[$category->id] = $category->title;
+
+            $list = ArrayHelper::merge($list, Category::getParentListArray($category->id, $level + 1));
+        }
+
+        return $list;
+    }
+
+
+
+    public static function getMenu($parent_id = null, $level = 0)
+    {
+        if (empty($parent_id)) {
+            $parent_id = null;
+        }
+
+        $categories = Category::find()->where(['parent_id' => $parent_id])->all();
+
+        $list = array();
+
+        foreach ($categories as $category) {
+
+            //$category->title = str_repeat(' - ', $level) . $category->title;
+
+            //$list[]['label'] = $category->title;
+            //$list[]['alias'] = $category->alias;
+            $list[] = array(
+                'label' => $category->title,
+                'url' => $category->alias
+            );
+
+            $list = ArrayHelper::merge($list, self::getMenu($category->id, $level + 1));
+        }
+
+        return $list;
     }
 
     /**

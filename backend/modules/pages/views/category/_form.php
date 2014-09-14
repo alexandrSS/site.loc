@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList($categoryArray, [
+    <?= $form->field($model, 'parent_id')->dropDownList($parentList, [
         'prompt' => Yii::t('pages', 'Выберите категорию')
     ]); ?>
 

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\grid\ActionColumn;
-
+use backend\modules\pages\models\Category;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\pages\models\SearchCategory */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,7 +27,13 @@ $this->params['subtitle'] = Yii::t('user', 'Список Категорий');
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
-            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'value' => function ($model) {
+                        return $model->ParentList;
+                    },
+                'filter' => Html::activeDropDownList($searchModel, 'view', $parentList, ['class' => 'form-control', 'prompt' => Yii::t('pages', 'Родитель')])
+            ],
             'alias',
             [
                 'attribute' => 'view',
@@ -76,5 +82,21 @@ $this->params['subtitle'] = Yii::t('user', 'Список Категорий');
             ]
         ],
     ]); ?>
+
+    <?php
+
+        print_r($parentList);
+        echo '<br>';
+        print_r($menu);
+    use yii\widgets\Menu;
+
+//    echo Menu::widget(
+//        [
+//            'items' => [
+//                Category::getMenu()
+//            ]
+//        ]
+//    );
+    ?>
 
 </div>

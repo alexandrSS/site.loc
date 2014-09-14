@@ -71,13 +71,17 @@ class CategoryController extends Controller
         $viewArray = Category::getPageViewArray();
         $positionArray = Category::getCategoryPositionArray();
         $statusArray = Category::getCategoryStatusArray();
+        $parentList = Category::getParentListArray();
+        $menu = Category::getMenu();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'viewArray' => $viewArray,
             'positionArray' => $positionArray,
+            'parentList' => $parentList,
             'statusArray' => $statusArray,
+            'menu' => $menu,
         ]);
     }
 
@@ -101,7 +105,7 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
-        $categoryArray = Category::getCategoryArray();
+        $parentList = Category::getParentListArray();
         $viewArray = Category::getPageViewArray();
         $positionArray = Category::getCategoryPositionArray();
         $statusArray = Category::getCategoryStatusArray();
@@ -111,7 +115,7 @@ class CategoryController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'categoryArray' => $categoryArray,
+                'parentList' => $parentList,
                 'viewArray' => $viewArray,
                 'positionArray' => $positionArray,
                 'statusArray' => $statusArray,

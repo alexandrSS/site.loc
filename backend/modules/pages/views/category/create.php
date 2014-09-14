@@ -18,7 +18,7 @@ $this->params['subtitle'] = Yii::t('user', 'Список Категорий');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'categoryArray' => $categoryArray,
+        'parentList' => $parentList,
         'viewArray' => $viewArray,
         'positionArray' => $positionArray,
         'statusArray' => $statusArray,
